@@ -34,5 +34,53 @@ namespace RFUI.Properties {
                 this["CanClose"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.1.7")]
+        public string InstalledVersion {
+            get {
+                return ((string)(this["InstalledVersion"]));
+            }
+            set {
+                this["InstalledVersion"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string NewVersion {
+            get {
+                return ((string)(this["NewVersion"]));
+            }
+            set {
+                this["NewVersion"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int RFUStatus {
+            get {
+                return ((int)(this["RFUStatus"]));
+            }
+            set {
+                this["RFUStatus"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string RFUPath {
+            get {
+                return ((string)(this["RFUPath"]));
+            }
+            set {
+                this["RFUPath"] = value;
+            }
+        }
     }
 }

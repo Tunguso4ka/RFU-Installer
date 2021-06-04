@@ -1,5 +1,7 @@
 ﻿using System.Windows.Controls;
 using System.Windows;
+using System.Threading.Tasks;
+using System;
 
 namespace RFUI
 {
@@ -11,18 +13,53 @@ namespace RFUI
         public UpdatePage()
         {
             InitializeComponent();
+
+            int RFUStatus = Properties.Settings.Default.RFUStatus;
+
+            if (RFUStatus == 0 )
+            {
+                InstallBtn.IsEnabled = false;
+            }
+            else if (RFUStatus == 1)
+            {
+                InstallBtn.Tag = "Update";
+                InstallBtn.Content = "Update";
+                InstallBtn.ToolTip = "Update";
+            }
+
+            VersionTextBlock.Text = "Version: " + Properties.Settings.Default.InstalledVersion + "(" + Properties.Settings.Default.NewVersion + ")";
         }
 
-        private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+        async void InfoUpdate()
+        {
+            ((MainWindow)Window.GetWindow(this)).Installing();
+            while (((MainWindow)Window.GetWindow(this)).IsInstalling == true)
+            {
+                DownloadingSpeed.Text = Convert.ToString(((MainWindow)Window.GetWindow(this)).RecievedBytes / 1000) + " kB/s ";
+                await Task.Delay(500);
+            }
+            InstallBtn.Content = "Install";
+            DeleteBtn.IsEnabled = true;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             Button ClickedButton = (Button)sender;
             if ((string)ClickedButton.Tag == "Install")
             {
                 ((MainWindow)Window.GetWindow(this))._ProgressBar.Visibility = Visibility.Visible;
+                InstallBtn.Content = "Installing";
+                InstallBtn.IsEnabled = false;
+                DeleteBtn.IsEnabled = false;
+                InfoUpdate();
             }
             else if ((string)ClickedButton.Tag == "Update")
             {
                 ((MainWindow)Window.GetWindow(this))._ProgressBar.Visibility = Visibility.Visible;
+                InstallBtn.Content = "Updating";
+                InstallBtn.IsEnabled = false;
+                DeleteBtn.IsEnabled = false;
+                InfoUpdate();
             }
             else if ((string)ClickedButton.Tag == "Info")
             {

@@ -13,7 +13,7 @@
     <Border BorderBrush="#999999" BorderThickness="2">
         <Grid>
             <Grid VerticalAlignment="Top" Height="25">
-                <ProgressBar Name="_ProgressBar" IsIndeterminate="True" Background="Transparent" BorderBrush="Transparent" Visibility="Collapsed" Margin="70,0,70,0"/>
+                <ProgressBar Name="_ProgressBar" IsIndeterminate="True" Background="Transparent" BorderBrush="Transparent" Visibility="Collapsed" Margin="70,0,70,0" Minimum="0" Maximum="100"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                     <Image Source="/Resources/rfulogo0525.png" Height="20" Width="20"/>
                     <TextBlock Text="Installer" FontSize="14" VerticalAlignment="Center" Width="50"/>

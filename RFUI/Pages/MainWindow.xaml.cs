@@ -4,6 +4,9 @@ using System.Windows.Controls;
 using Forms = System.Windows.Forms;
 using System.Windows.Input;
 using System.ComponentModel;
+using System.IO;
+using System.Net;
+using System.IO.Compression;
 
 namespace RFUI
 {
@@ -14,6 +17,18 @@ namespace RFUI
     {
         Forms.NotifyIcon notifyIcon;
         public UpdatePage _UpdatePage;
+        public bool IsInstalling;
+        public double RecievedBytes;
+
+        //Ссылка на местоположение на компьютере
+        string UpdateInfoPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\RFUpdater\Update.txt";
+        //Ссылка на файл с информацией
+        string UpdateInfoUrl = "https://drive.google.com/uc?export=download&id=1oKyTppE7V8E-Q0UF0_SXNmW3diQ0QbLJ"; //https://drive.google.com/uc?export=download&id=1oKyTppE7V8E-Q0UF0_SXNmW3diQ0QbLJ
+        //Ссылка на файл с информацией
+        string RFUUrl;
+        string ZipPath;
+        string AppPath;
+
 
         public MainWindow()
         {
@@ -21,6 +36,11 @@ namespace RFUI
 
             //Создаем NotifyIcon
             CreateNotifyIcon();
+
+            Properties.Settings.Default.RFUPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\RFUpdater\";
+            Properties.Settings.Default.Save();
+
+            CheckUpdates();
 
             Pages();
             Frame0.Navigate(_UpdatePage);
@@ -33,7 +53,137 @@ namespace RFUI
 
         public void CheckUpdates()
         {
+            try
+            {
+                if (File.Exists(UpdateInfoPath))
+                {
+                    File.Delete(UpdateInfoPath);
+                }
 
+                WebClient WebClient = new WebClient();
+                WebClient.DownloadFile(UpdateInfoUrl, UpdateInfoPath);
+                using (StreamReader StreamReader = new StreamReader(UpdateInfoPath))
+                {
+                    Properties.Settings.Default.NewVersion = StreamReader.ReadLine();
+                    RFUUrl = StreamReader.ReadLine();
+                    StreamReader.Dispose();
+                }
+
+                File.Delete(UpdateInfoPath);
+
+                int RFUStatus = 0;
+                Version NewVersion = new Version(Properties.Settings.Default.NewVersion);
+                Version InstalledVersion = new Version(Properties.Settings.Default.InstalledVersion);
+
+                if (InstalledVersion == new Version("0.0"))
+                {
+                    RFUStatus = -2;
+                }
+                else
+                {
+                    switch (NewVersion.CompareTo(InstalledVersion))
+                    {
+                        case 0:
+                            RFUStatus = 0; //такая же
+                            break;
+                        case 1:
+                            RFUStatus = 1; //новее
+                            break;
+                        case -1:
+                            RFUStatus = -1; //старше
+                            break;
+                    }
+                }
+
+                Properties.Settings.Default.RFUStatus = RFUStatus;
+                Properties.Settings.Default.Save();
+            }
+            catch { }
+        }
+
+        public void Installing()
+        {
+            IsInstalling = true;
+            Properties.Settings.Default.CanClose = false;
+
+            _ProgressBar.IsIndeterminate = false;
+
+            WebClient WebClient = new WebClient();
+
+            if (Directory.Exists(Properties.Settings.Default.RFUPath))
+            {
+
+            }
+            else
+            {
+                Directory.CreateDirectory(Properties.Settings.Default.RFUPath);
+            }
+
+            ZipPath = Properties.Settings.Default.RFUPath + @"\RFUpdater.zip";
+            AppPath = Properties.Settings.Default.RFUPath + @"\RFUpdater.exe";
+
+            if (File.Exists(ZipPath))
+            {
+                File.Delete(ZipPath);
+            }
+
+            if (File.Exists(AppPath))
+            {
+                File.Delete(AppPath);
+            }
+
+            Uri UpdateUri = new Uri(RFUUrl);
+            WebClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed);
+            WebClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChanged);
+            WebClient.DownloadFileAsync(UpdateUri, ZipPath);
+
+            //InstallBtn.IsEnabled = false;
+            _ProgressBar.Visibility = Visibility.Visible;
+            //_ProgressTextBox.Visibility = Visibility.Visible;
+            //DownSpeedTextBlock.Visibility = Visibility.Visible;
+        }
+
+        private void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+            //ProgressBar0.Value = e.ProgressPercentage;
+            _ProgressBar.Value = e.ProgressPercentage;
+            //_ProgressTextBox.Text = e.ProgressPercentage + "%";
+            //DownSpeedTextBlock.Text = "Bytes received: " + e.BytesReceived;
+        }
+
+        private void Completed(object sender, AsyncCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                MessageBox.Show(e.Error.Message);
+            }
+            else
+            {
+                try
+                {
+                    MessageBox.Show("Complete");
+                    Properties.Settings.Default.RFUStatus = 0;
+
+                    ZipFile.ExtractToDirectory(ZipPath, Properties.Settings.Default.RFUPath);
+                    File.Delete(ZipPath);
+                }
+                catch
+                {
+                    MessageBox.Show("Error: Can't download this app, try later.", "Error");
+                }
+            }
+            //InstallBtn.IsEnabled = true;
+            //DeleteBtn.Visibility = Visibility.Visible;
+            //ProgressBar0.Visibility = Visibility.Hidden;
+            _ProgressBar.Visibility = Visibility.Collapsed;
+            //_ProgressTextBox.Visibility = Visibility.Collapsed;
+            //DownSpeedTextBlock.Visibility = Visibility.Collapsed;
+
+            Properties.Settings.Default.CanClose = true;
+            Properties.Settings.Default.InstalledVersion = Properties.Settings.Default.NewVersion;
+            Properties.Settings.Default.Save();
+
+            IsInstalling = false;
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
