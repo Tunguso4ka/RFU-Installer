@@ -6,7 +6,7 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="InstalledVersion" Type="System.String" Scope="User">
-      <Value Profile="(Default)">0.1.7</Value>
+      <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="NewVersion" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -16,6 +16,9 @@
     </Setting>
     <Setting Name="RFUPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="AutoUpdate" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Net;
 using System.IO.Compression;
+using System.Diagnostics;
 
 namespace RFUI
 {
@@ -34,6 +35,9 @@ namespace RFUI
         {
             InitializeComponent();
 
+            //проверяем из правильного ли места запущено приложение
+            CheckLocation();
+
             //Создаем NotifyIcon
             CreateNotifyIcon();
 
@@ -44,6 +48,22 @@ namespace RFUI
 
             Pages();
             Frame0.Navigate(_UpdatePage);
+        }
+
+        void CheckLocation()
+        {
+            if (Environment.CurrentDirectory != Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\RFUpdater")
+            {
+                if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\RFUpdater\RFUI.exe"))
+                {
+                    File.Copy(Environment.CurrentDirectory + @"\RFUI.exe", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\RFUpdater\RFUI.exe", true);
+                }
+            }
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\RFUpdater\RFUpdater.exe"))
+            {
+                Properties.Settings.Default.InstalledVersion = "0.0.0.0";
+                Properties.Settings.Default.Save();
+            }
         }
 
         void Pages()
@@ -184,6 +204,19 @@ namespace RFUI
             Properties.Settings.Default.Save();
 
             IsInstalling = false;
+        }
+
+        public void DeleteRFU()
+        {
+            AppPath = Properties.Settings.Default.RFUPath + @"\RFUpdater.exe";
+
+            if (File.Exists(AppPath))
+            {
+                File.Delete(AppPath);
+            }
+
+            Properties.Settings.Default.InstalledVersion = "0.0.0.0";
+            Properties.Settings.Default.Save();
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

@@ -61,6 +61,13 @@ namespace RFUI
                 DeleteBtn.IsEnabled = false;
                 InfoUpdate();
             }
+            else if ((string)ClickedButton.Tag == "Delete")
+            {
+                ((MainWindow)Window.GetWindow(this)).DeleteRFU();
+                InstallBtn.Content = "Install";
+                InstallBtn.IsEnabled = true;
+                DeleteBtn.IsEnabled = false;
+            }
             else if ((string)ClickedButton.Tag == "Info")
             {
                 if(InfoBorder.Visibility == Visibility.Collapsed)

@@ -37,7 +37,7 @@ namespace RFUI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.1.7")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public string InstalledVersion {
             get {
                 return ((string)(this["InstalledVersion"]));
@@ -80,6 +80,18 @@ namespace RFUI.Properties {
             }
             set {
                 this["RFUPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AutoUpdate {
+            get {
+                return ((bool)(this["AutoUpdate"]));
+            }
+            set {
+                this["AutoUpdate"] = value;
             }
         }
     }
