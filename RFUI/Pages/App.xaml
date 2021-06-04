@@ -28,5 +28,10 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <Style TargetType="Separator">
+            <Setter Property="Width" Value="3"/>
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+        
     </Application.Resources>
 </Application>

@@ -1,0 +1,33 @@
+﻿<Page x:Class="RFUI.UpdatePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:RFUI"
+      mc:Ignorable="d" 
+      d:DesignHeight="475" d:DesignWidth="700"
+      Title="UpdatePage">
+
+    <Grid>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="5">
+            <Border BorderBrush="#DDDDDD" BorderThickness="2" CornerRadius="90">
+                <Image Name="RFUIcon" Height="50" Width="50" Source="/Resources/rfulogo0525.png"/>
+            </Border>
+            <Separator/>
+            <StackPanel>
+                <TextBlock Text="RFUpdater" FontSize="24"/>
+                <TextBlock Text="Version: 0.1.7" Foreground="Gray"/>
+            </StackPanel>
+            <Separator/>
+            <Button Content="Install" Height="50" Width="100" FontSize="24" Name="InstallBtn" Click="Button_Click" Tag="Install" ToolTip="Install"/>
+            <Separator/>
+            <Button Content="" Height="50" Width="50" FontSize="24" FontFamily="Segoe MDL2 Assets" Name="DeleteBtn" Click="Button_Click" Tag="Delete" ToolTip="Delete"/>
+            <Separator/>
+            <Button Content="" Height="50" Width="50" FontSize="24" FontFamily="Segoe MDL2 Assets" Name="InfoBtn" Click="Button_Click" Tag="Info" ToolTip="Show info"/>
+            <Separator/>
+            <Border Name="InfoBorder" Visibility="Collapsed">
+
+            </Border>
+        </StackPanel>
+    </Grid>
+</Page>
