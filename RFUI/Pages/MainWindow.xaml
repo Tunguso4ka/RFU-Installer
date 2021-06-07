@@ -5,25 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RFUI"
         mc:Ignorable="d"
+        
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
-        ResizeMode="CanMinimize"
+        ResizeMode="CanResizeWithGrip"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
-        Title="RFU Installer" Height="500" Width="600">
-    <Border BorderBrush="#999999" BorderThickness="2">
+        StateChanged="Window_StateChanged"
+        SizeChanged="Window_SizeChanged"
+        
+        Title="RFU Installer"
+        
+        MinHeight="300" MinWidth="400"
+        Height="500" Width="600"
+        >
+    <Border BorderBrush="Transparent" BorderThickness="2">
         <Grid>
             <Grid VerticalAlignment="Top" Height="25">
-                <ProgressBar Name="_ProgressBar" IsIndeterminate="True" Background="Transparent" BorderBrush="Transparent" Visibility="Collapsed" Margin="70,0,70,0" Minimum="0" Maximum="100"/>
+                <ProgressBar Name="_ProgressBar" IsIndeterminate="True" Background="Transparent" BorderBrush="Transparent" Visibility="Collapsed" Margin="105,0,105,0" Minimum="0" Maximum="100"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                     <Image Source="/Resources/rfulogo0525.png" Height="20" Width="20"/>
                     <TextBlock Text="Installer" FontSize="14" VerticalAlignment="Center" Width="50"/>
+                    <Button Content="" FontFamily="Segoe MDL2 Assets" Name="ShowMenu" Click="Button_Click" ToolTip="Show Menu" Tag="ShowMenu"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Button Content="" FontFamily="Segoe MDL2 Assets" Name="Minimize" Click="Button_Click" ToolTip="Minimize" Tag="Minimize"/>
+                    <Button Content="" FontFamily="Segoe MDL2 Assets" Name="Maximize" Click="Button_Click" ToolTip="Maximize" Tag="Maximize"/>
                     <Button Content="" FontFamily="Segoe MDL2 Assets" Name="Close" Click="Button_Click" ToolTip="Close" Tag="Close"/>
                 </StackPanel>
             </Grid>
-            <Frame Margin="0,25,0,0" Name="Frame0"/>
+            <StackPanel Margin="0,25,0,0" Orientation="Horizontal">
+                <Frame x:Name="Frame1" Width="200" Background="#FDFDFD"/>
+                <Frame Name="Frame0" VerticalAlignment="Stretch"/>
+            </StackPanel>
         </Grid>
     </Border>
 </Window>

@@ -10,7 +10,7 @@
 
     <Grid>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="5">
-            <Border BorderBrush="#DDDDDD" BorderThickness="2" CornerRadius="90">
+            <Border BorderBrush="#EAEAEA" BorderThickness="2" CornerRadius="90">
                 <Image Name="RFUIcon" Height="50" Width="50" Source="/Resources/rfulogo0525.png"/>
             </Border>
             <Separator/>

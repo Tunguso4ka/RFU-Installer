@@ -18,6 +18,7 @@ namespace RFUI
     {
         Forms.NotifyIcon notifyIcon;
         public UpdatePage _UpdatePage;
+        public MenuPage _MenuPage;
         public bool IsInstalling;
         public double RecievedBytes;
 
@@ -29,7 +30,6 @@ namespace RFUI
         string RFUUrl;
         string ZipPath;
         string AppPath;
-
 
         public MainWindow()
         {
@@ -48,6 +48,7 @@ namespace RFUI
 
             Pages();
             Frame0.Navigate(_UpdatePage);
+            Frame1.Navigate(_MenuPage);
         }
 
         void CheckLocation()
@@ -69,6 +70,7 @@ namespace RFUI
         void Pages()
         {
             _UpdatePage = new UpdatePage();
+            _MenuPage = new MenuPage();
         }
 
         public void CheckUpdates()
@@ -226,7 +228,7 @@ namespace RFUI
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //Кнопки
+            //Кнопки 
             Button ClickedButton = (Button)sender;
             if ((string)ClickedButton.Tag == "Close")
             {
@@ -243,6 +245,35 @@ namespace RFUI
             else if ((string)ClickedButton.Tag == "Minimize")
             {
                 this.WindowState = WindowState.Minimized;
+            }
+            else if ((string)ClickedButton.Tag == "Maximize")
+            {
+                if (this.WindowState == WindowState.Maximized)
+                {
+                    this.WindowState = WindowState.Normal;
+                    ClickedButton.Content = "";
+                }
+                else
+                {
+                    this.WindowStyle = WindowStyle.SingleBorderWindow;
+                    this.WindowState = WindowState.Maximized;
+                    ClickedButton.Content = "";
+                    this.WindowStyle = WindowStyle.None;
+                }
+                
+            }
+            else if ((string)ClickedButton.Tag == "ShowMenu")
+            {
+                if(Frame1.Visibility == Visibility.Visible)
+                {
+                    ClickedButton.ToolTip = "Show Menu";
+                    Frame1.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    ClickedButton.ToolTip = "Hide Menu";
+                    Frame1.Visibility = Visibility.Visible;
+                }
             }
         }
         private void CreateNotifyIcon()
@@ -292,6 +323,35 @@ namespace RFUI
         public void KillNotifyIcon()
         {
             notifyIcon.Dispose();
+        }
+
+        private void Window_StateChanged(object sender, EventArgs e)
+        {
+            if (this.WindowState == WindowState.Maximized)
+            {
+                this.WindowStyle = WindowStyle.SingleBorderWindow;
+                this.WindowState = WindowState.Maximized;
+                Maximize.Content = "";
+                this.WindowStyle = WindowStyle.None;
+            }
+            else if (this.WindowState == WindowState.Minimized)
+            {
+                
+            }
+            else
+            {
+                this.WindowState = WindowState.Normal;
+                Maximize.Content = "";
+            }
+        }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if(this.Width <= 600)
+            {
+                ShowMenu.ToolTip = "Show Menu";
+                Frame1.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }
