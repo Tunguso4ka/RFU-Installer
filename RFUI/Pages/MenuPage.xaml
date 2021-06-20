@@ -1,0 +1,27 @@
+﻿<Page x:Class="RFUI.MenuPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:RFUI"
+      mc:Ignorable="d" 
+      d:DesignHeight="720" d:DesignWidth="200"
+      Title="MenuPage">
+
+    <StackPanel Orientation="Horizontal">
+        <StackPanel>
+            <Button Content="" Width="25" FontFamily="Segoe MDL2 Assets" IsEnabled="False"/>
+            <Button Content="" Width="25"/>
+            <Button Content="" Width="25" FontFamily="Segoe MDL2 Assets" IsEnabled="False"/>
+            <Button Content="" Width="25" FontFamily="Segoe MDL2 Assets" IsEnabled="False"/>
+            <Button Content="&#xEF2C;" Width="25" FontFamily="Segoe MDL2 Assets" IsEnabled="False"/>
+        </StackPanel>
+        <StackPanel>
+            <Button Content="RFUpdater" Width="175" Name="App" Click="Button_Click" ToolTip="RFUpdater" Tag="App"/>
+            <Button Content="" Width="175"/>
+            <Button Content="Change theme" Width="175" Name="ChangeTheme" Click="Button_Click" ToolTip="Change theme" Tag="ChangeTheme"/>
+            <Button Content="About" Width="175" Name="About" Click="Button_Click" ToolTip="About" Tag="About"/>
+            <Button Content="Exit" Width="175" Name="Exit" Click="Button_Click" ToolTip="Exit" Tag="Exit"/>
+        </StackPanel>
+    </StackPanel>
+</Page>

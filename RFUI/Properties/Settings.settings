@@ -6,7 +6,7 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="InstalledVersion" Type="System.String" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">0.1.7.0</Value>
     </Setting>
     <Setting Name="NewVersion" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

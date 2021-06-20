@@ -8,6 +8,9 @@ using System.IO;
 using System.Net;
 using System.IO.Compression;
 using System.Diagnostics;
+using System.IO.Pipes;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace RFUI
 {
@@ -35,8 +38,9 @@ namespace RFUI
         {
             InitializeComponent();
 
+
             //проверяем из правильного ли места запущено приложение
-            CheckLocation();
+            //CheckLocation();
 
             //Создаем NotifyIcon
             CreateNotifyIcon();
@@ -97,7 +101,16 @@ namespace RFUI
                 Version NewVersion = new Version(Properties.Settings.Default.NewVersion);
                 Version InstalledVersion = new Version(Properties.Settings.Default.InstalledVersion);
 
-                if (InstalledVersion == new Version("0.0"))
+                //проверяем наличие и версию файла на компьютере
+                if(File.Exists(Properties.Settings.Default.RFUPath + "RFUpdater.exe"))
+                {
+                    FileVersionInfo _InstalledVersion = FileVersionInfo.GetVersionInfo(Properties.Settings.Default.RFUPath + "RFUpdater.exe");
+                    InstalledVersion = new Version(_InstalledVersion.ProductVersion);
+                    Properties.Settings.Default.InstalledVersion = Convert.ToString(InstalledVersion);
+                    Properties.Settings.Default.Save();
+                }
+
+                if (InstalledVersion == new Version("0"))
                 {
                     RFUStatus = -2;
                 }
@@ -251,13 +264,13 @@ namespace RFUI
                 if (this.WindowState == WindowState.Maximized)
                 {
                     this.WindowState = WindowState.Normal;
-                    ClickedButton.Content = "";
+                    ClickedButton.Content = "";
                 }
                 else
                 {
                     this.WindowStyle = WindowStyle.SingleBorderWindow;
                     this.WindowState = WindowState.Maximized;
-                    ClickedButton.Content = "";
+                    ClickedButton.Content = "";
                     this.WindowStyle = WindowStyle.None;
                 }
                 
@@ -267,12 +280,17 @@ namespace RFUI
                 if(Frame1.Visibility == Visibility.Visible)
                 {
                     ClickedButton.ToolTip = "Show Menu";
+                    ClickedButton.Content = "";
                     Frame1.Visibility = Visibility.Collapsed;
+                    Frame1Rectangle.Visibility = Visibility.Collapsed;
                 }
-                else
+                else if (this.Width >= 600 && Frame1.Visibility == Visibility.Collapsed)
                 {
                     ClickedButton.ToolTip = "Hide Menu";
+                    ClickedButton.Content = "";
                     Frame1.Visibility = Visibility.Visible;
+                    Frame1Rectangle.Visibility = Visibility.Visible;
+                    Frame1Rectangle.Width = Frame1.Width;
                 }
             }
         }
@@ -331,17 +349,8 @@ namespace RFUI
             {
                 this.WindowStyle = WindowStyle.SingleBorderWindow;
                 this.WindowState = WindowState.Maximized;
-                Maximize.Content = "";
+                Maximize.Content = "";
                 this.WindowStyle = WindowStyle.None;
-            }
-            else if (this.WindowState == WindowState.Minimized)
-            {
-                
-            }
-            else
-            {
-                this.WindowState = WindowState.Normal;
-                Maximize.Content = "";
             }
         }
 
@@ -350,7 +359,10 @@ namespace RFUI
             if(this.Width <= 600)
             {
                 ShowMenu.ToolTip = "Show Menu";
+                ShowMenu.Content = "";
                 Frame1.Visibility = Visibility.Collapsed;
+                Frame1Rectangle.Visibility = Visibility.Collapsed;
+                Frame1Rectangle.Width = Frame1.Width;
             }
         }
     }

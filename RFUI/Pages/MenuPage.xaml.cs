@@ -33,9 +33,9 @@ namespace RFUI
             {
                 //((MainWindow)Window.GetWindow(this)).Frame0.Navigate();
             }
-            else if ((string)ClickedButton.Tag == "Settings")
+            else if ((string)ClickedButton.Tag == "ChangeTheme")
             {
-                //((MainWindow)Window.GetWindow(this)).Frame0.Navigate();
+
             }
         }
     }
