@@ -16,7 +16,7 @@
             <Separator/>
             <StackPanel>
                 <TextBlock Text="RFUpdater" FontSize="24"/>
-                <TextBlock Name="VersionTextBlock" Text="Version: 0.1.7" Foreground="Gray"/>
+                <TextBlock Name="VersionTextBlock" Text="Version: 0.0.0.0 (0.0.0.0)" Foreground="Gray"/>
             </StackPanel>
             <Separator/>
             <Button Content="Install" Height="50" Width="100" FontSize="24" Name="InstallBtn" Click="Button_Click" Tag="Install" ToolTip="Install"/>

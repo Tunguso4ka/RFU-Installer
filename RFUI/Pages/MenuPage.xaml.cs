@@ -31,11 +31,15 @@ namespace RFUI
             }
             else if ((string)ClickedButton.Tag == "App")
             {
-                //((MainWindow)Window.GetWindow(this)).Frame0.Navigate();
+                ((MainWindow)Window.GetWindow(this)).Frame0.Navigate(((MainWindow)Window.GetWindow(this))._UpdatePage);
             }
             else if ((string)ClickedButton.Tag == "ChangeTheme")
             {
 
+            }
+            else if ((string)ClickedButton.Tag == "About")
+            {
+                ((MainWindow)Window.GetWindow(this)).Frame0.Navigate(((MainWindow)Window.GetWindow(this))._AboutPage);
             }
         }
     }

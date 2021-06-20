@@ -37,7 +37,7 @@ namespace RFUI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.1.7.0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.0.0.0")]
         public string InstalledVersion {
             get {
                 return ((string)(this["InstalledVersion"]));
@@ -49,7 +49,7 @@ namespace RFUI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.0.0.0")]
         public string NewVersion {
             get {
                 return ((string)(this["NewVersion"]));
@@ -61,7 +61,7 @@ namespace RFUI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("-2")]
         public int RFUStatus {
             get {
                 return ((int)(this["RFUStatus"]));

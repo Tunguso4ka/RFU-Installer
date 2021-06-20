@@ -16,9 +16,9 @@ namespace RFUI
 
             int RFUStatus = Properties.Settings.Default.RFUStatus;
 
-            if (RFUStatus == 0 )
+            if (RFUStatus == -2 )
             {
-                InstallBtn.IsEnabled = false;
+                DeleteBtn.Visibility = Visibility.Hidden;
             }
             else if (RFUStatus == 1)
             {
@@ -26,6 +26,36 @@ namespace RFUI
                 InstallBtn.Content = "Update";
                 InstallBtn.ToolTip = "Update";
             }
+            else
+            {
+                InstallBtn.IsEnabled = false;
+                InstallBtn.Content = "Installed";
+                InstallBtn.ToolTip = "Installed";
+            }
+
+            /*
+            if (GameStatus == -2)
+            {
+                StatusTextBlock.Text = "Status: Not installed.";
+                InstallBtn.Content = "⬇💾Install";
+                InstallBtn.ToolTip = "Install";
+                DeleteBtn.Visibility = Visibility.Hidden;
+            }
+            else if (GameStatus == 1)
+            {
+                StatusTextBlock.Text = "Status: Update found.";
+                InstallBtn.Content = "🆕Update";
+                InstallBtn.ToolTip = "Update";
+                DeleteBtn.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                StatusTextBlock.Text = "Status: Installed.";
+                InstallBtn.Content = "🎮Play";
+                InstallBtn.ToolTip = "Play";
+                DeleteBtn.Visibility = Visibility.Visible;
+            }
+            */
 
             VersionTextBlock.Text = "Version: " + Properties.Settings.Default.InstalledVersion + "(" + Properties.Settings.Default.NewVersion + ")";
         }

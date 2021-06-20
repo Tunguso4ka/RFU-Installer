@@ -22,6 +22,7 @@ namespace RFUI
         Forms.NotifyIcon notifyIcon;
         public UpdatePage _UpdatePage;
         public MenuPage _MenuPage;
+        public AboutPage _AboutPage;
         public bool IsInstalling;
         public double RecievedBytes;
 
@@ -34,13 +35,14 @@ namespace RFUI
         string ZipPath;
         string AppPath;
 
+        bool IsInstalled = true;
+
         public MainWindow()
         {
             InitializeComponent();
 
-
             //проверяем из правильного ли места запущено приложение
-            //CheckLocation();
+            CheckLocation();
 
             //Создаем NotifyIcon
             CreateNotifyIcon();
@@ -66,8 +68,10 @@ namespace RFUI
             }
             if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\RFUpdater\RFUpdater.exe"))
             {
-                Properties.Settings.Default.InstalledVersion = "0.0.0.0";
+                Properties.Settings.Default.InstalledVersion = "0";
                 Properties.Settings.Default.Save();
+                IsInstalled = false;
+                MessageBox.Show("df", "a");
             }
         }
 
@@ -97,20 +101,39 @@ namespace RFUI
 
                 File.Delete(UpdateInfoPath);
 
-                int RFUStatus = 0;
-                Version NewVersion = new Version(Properties.Settings.Default.NewVersion);
-                Version InstalledVersion = new Version(Properties.Settings.Default.InstalledVersion);
+                //MessageBox.Show("CheckUpdates", "b");
+
+                Version InstalledVersion;
+                Version NewVersion;
+
+                try
+                {
+                    InstalledVersion = new Version(Properties.Settings.Default.InstalledVersion);
+                    NewVersion = new Version(Properties.Settings.Default.NewVersion);
+                }
+                catch
+                {
+                    InstalledVersion = new Version("0.0.0.0");
+                    NewVersion = new Version("0.0.0.0");
+                }
+
+                //MessageBox.Show("CheckUpdates", "c");
 
                 //проверяем наличие и версию файла на компьютере
-                if(File.Exists(Properties.Settings.Default.RFUPath + "RFUpdater.exe"))
+                if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\RFUpdater\RFUpdater.exe"))
                 {
-                    FileVersionInfo _InstalledVersion = FileVersionInfo.GetVersionInfo(Properties.Settings.Default.RFUPath + "RFUpdater.exe");
+                    //MessageBox.Show("CheckUpdates", "d");
+                    FileVersionInfo _InstalledVersion = FileVersionInfo.GetVersionInfo(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\RFUpdater\RFUpdater.exe");
                     InstalledVersion = new Version(_InstalledVersion.ProductVersion);
                     Properties.Settings.Default.InstalledVersion = Convert.ToString(InstalledVersion);
                     Properties.Settings.Default.Save();
                 }
 
-                if (InstalledVersion == new Version("0"))
+                //MessageBox.Show("CheckUpdates", "e");
+
+                int RFUStatus = -2;
+
+                if (IsInstalled == false)
                 {
                     RFUStatus = -2;
                 }
@@ -128,12 +151,17 @@ namespace RFUI
                             RFUStatus = -1; //старше
                             break;
                     }
+                    //MessageBox.Show(RFUStatus + "", "b");
                 }
+                //MessageBox.Show(RFUStatus + "", "c");
 
                 Properties.Settings.Default.RFUStatus = RFUStatus;
                 Properties.Settings.Default.Save();
             }
-            catch { }
+            catch 
+            {
+                MessageBox.Show("CheckUpdates", "a");
+            }
         }
 
         public void Installing()
@@ -337,12 +365,10 @@ namespace RFUI
             KillNotifyIcon();
             Application.Current.Dispatcher.Invoke(Application.Current.Shutdown);
         }
-
         public void KillNotifyIcon()
         {
             notifyIcon.Dispose();
         }
-
         private void Window_StateChanged(object sender, EventArgs e)
         {
             if (this.WindowState == WindowState.Maximized)
@@ -353,7 +379,6 @@ namespace RFUI
                 this.WindowStyle = WindowStyle.None;
             }
         }
-
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             if(this.Width <= 600)

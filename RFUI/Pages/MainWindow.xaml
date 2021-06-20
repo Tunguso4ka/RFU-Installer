@@ -40,7 +40,7 @@
             </Grid>
             <StackPanel Margin="0,25,0,0" Orientation="Horizontal">
                 <Frame x:Name="Frame1" MinWidth="200" Background="AliceBlue"/>
-                <Frame Name="Frame0" VerticalAlignment="Stretch"/>
+                <Frame Name="Frame0" VerticalAlignment="Stretch" NavigationUIVisibility="Hidden"/>
             </StackPanel>
         </Grid>
     </Border>
