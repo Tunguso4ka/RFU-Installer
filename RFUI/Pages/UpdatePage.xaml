@@ -8,7 +8,7 @@
       d:DesignHeight="475" d:DesignWidth="700"
       Title="UpdatePage">
 
-    <Grid Margin="5,25,5,5">
+    <Grid Margin="5,30,5,5">
         <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
             <StackPanel Orientation="Vertical">
                 <WrapPanel VerticalAlignment="Top" Margin="5">

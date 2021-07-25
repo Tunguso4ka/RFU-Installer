@@ -292,13 +292,13 @@ namespace RFUI
                 if (this.WindowState == WindowState.Maximized)
                 {
                     this.WindowState = WindowState.Normal;
-                    ClickedButton.Content = "";
+                    ClickedButton.Content = "";
                 }
                 else
                 {
                     this.WindowStyle = WindowStyle.SingleBorderWindow;
                     this.WindowState = WindowState.Maximized;
-                    ClickedButton.Content = "";
+                    ClickedButton.Content = "";
                     this.WindowStyle = WindowStyle.None;
                 }
                 
@@ -308,16 +308,18 @@ namespace RFUI
                 if(Frame1.Visibility == Visibility.Visible)
                 {
                     ClickedButton.ToolTip = "Show Menu";
-                    ClickedButton.Content = "";
+                    ClickedButton.Content = "";
                     Frame1.Visibility = Visibility.Collapsed;
                 }
                 else if (this.Width >= 600 && Frame1.Visibility == Visibility.Collapsed)
                 {
                     ClickedButton.ToolTip = "Hide Menu";
-                    ClickedButton.Content = "";
+                    ClickedButton.Content = "";
                     Frame1.Visibility = Visibility.Visible;
                 }
             }
+
+            //
         }
         private void CreateNotifyIcon()
         {
@@ -372,7 +374,7 @@ namespace RFUI
             {
                 this.WindowStyle = WindowStyle.SingleBorderWindow;
                 this.WindowState = WindowState.Maximized;
-                MaximizeBtn.Content = "";
+                MaximizeBtn.Content = "";
                 this.WindowStyle = WindowStyle.None;
             }
         }
@@ -381,7 +383,7 @@ namespace RFUI
             if(this.Width <= 600)
             {
                 ShowMenuBtn.ToolTip = "Show Menu";
-                ShowMenuBtn.Content = "";
+                ShowMenuBtn.Content = "";
                 Frame1.Visibility = Visibility.Collapsed;
             }
         }
