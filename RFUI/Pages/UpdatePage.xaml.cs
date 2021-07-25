@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Threading.Tasks;
 using System;
+using System.Diagnostics;
 
 namespace RFUI
 {
@@ -19,6 +20,9 @@ namespace RFUI
             if (RFUStatus == -2 )
             {
                 DeleteBtn.Visibility = Visibility.Hidden;
+                InstallBtn.Tag = "Install";
+                InstallBtn.Content = "Install";
+                InstallBtn.ToolTip = "Install";
             }
             else if (RFUStatus == 1)
             {
@@ -28,9 +32,9 @@ namespace RFUI
             }
             else
             {
-                InstallBtn.IsEnabled = false;
-                InstallBtn.Content = "Installed";
-                InstallBtn.ToolTip = "Installed";
+                InstallBtn.Tag = "Open";
+                InstallBtn.Content = "Open";
+                InstallBtn.ToolTip = "Open";
             }
 
             /*
@@ -68,8 +72,44 @@ namespace RFUI
                 DownloadingSpeed.Text = Convert.ToString(((MainWindow)Window.GetWindow(this)).RecievedBytes / 1000) + " kB/s ";
                 await Task.Delay(500);
             }
-            InstallBtn.Content = "Install";
+            InstallBtn.Content = "Open";
+            InstallBtn.IsEnabled = true;
             DeleteBtn.IsEnabled = true;
+        }
+
+        async void OpenApp()
+        {
+            try
+            {
+                InstallBtn.IsEnabled = false;
+                DeleteBtn.IsEnabled = false;
+
+                InstallBtn.Content = "Running";
+
+                Process RFUProcess = new Process();
+                RFUProcess.StartInfo.FileName = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\RFUpdater\RFUpdater.exe";
+                RFUProcess.StartInfo.Arguments = "";
+                RFUProcess.Exited += new EventHandler(ProcessExited);
+                RFUProcess.Start();
+
+                //Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\RFUpdater\RFUpdater.exe"
+            }
+            catch
+            {
+                InstallBtn.IsEnabled = true;
+                DeleteBtn.IsEnabled = true;
+
+                InstallBtn.Content = "Open";
+            }
+
+        }
+
+        public void ProcessExited(object sender, System.EventArgs e)
+        {
+            InstallBtn.IsEnabled = true;
+            DeleteBtn.IsEnabled = true;
+
+            InstallBtn.Content = "Open";
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -110,6 +150,10 @@ namespace RFUI
                     ClickedButton.ToolTip = "Show info";
                     InfoBorder.Visibility = Visibility.Collapsed;
                 }
+            }
+            else if ((string)ClickedButton.Tag == "Open")
+            {
+                OpenApp();
             }
         }
     }

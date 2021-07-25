@@ -16,32 +16,31 @@
         
         Title="RFU Installer"
         
-        MinHeight="500" MinWidth="600"
+        MinHeight="300" MinWidth="400"
         Height="300" Width="420"
         >
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="5" GlassFrameThickness="5" NonClientFrameEdges="None" ResizeBorderThickness="5">
         </WindowChrome>
     </WindowChrome.WindowChrome>
-    <Border BorderThickness="5" BorderBrush="AliceBlue">
-        <Grid Background="White">
-            <Grid VerticalAlignment="Top" Height="25" Background="#FFFFFF">
-                <Rectangle Name="Frame1Rectangle" MinWidth="200" Fill="AliceBlue" HorizontalAlignment="Left"/>
-                <ProgressBar Name="_ProgressBar" IsIndeterminate="True" Background="Transparent" BorderBrush="Transparent" Foreground="#7F008000" Visibility="Collapsed" Minimum="0" Maximum="100"/>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                    <Image Source="/Resources/rfuilogo.png" Height="25" Width="35" SnapsToDevicePixels="False"/>
-                    <Button Content="" FontFamily="Segoe MDL2 Assets" Name="ShowMenu" Click="Button_Click" ToolTip="Show Menu" Tag="ShowMenu"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Content="" FontFamily="Segoe MDL2 Assets" Name="Minimize" Click="Button_Click" ToolTip="Minimize" Tag="Minimize"/>
-                    <Button Content="" FontFamily="Segoe MDL2 Assets" Name="Maximize" Click="Button_Click" ToolTip="Maximize" Tag="Maximize"/>
-                    <Button Content="" FontFamily="Segoe MDL2 Assets" Name="Close" Click="Button_Click" ToolTip="Close" Tag="Close"/>
-                </StackPanel>
-            </Grid>
-            <StackPanel Margin="0,25,0,0" Orientation="Horizontal">
+    <Border BorderThickness="5" BorderBrush="Black">
+        <Grid>
+            <StackPanel Orientation="Horizontal">
                 <Frame x:Name="Frame1" MinWidth="200" Background="AliceBlue"/>
                 <Frame Name="Frame0" VerticalAlignment="Stretch" NavigationUIVisibility="Hidden"/>
             </StackPanel>
+
+            <Grid VerticalAlignment="Top" Height="25">
+                <ProgressBar Name="_ProgressBar" IsIndeterminate="True" Background="Transparent" BorderBrush="Transparent" Foreground="#7F008000" Visibility="Collapsed" Minimum="0" Maximum="100"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Button Content="" FontFamily="Segoe MDL2 Assets" Name="ShowMenuBtn" Click="Button_Click" ToolTip="Show Menu" Tag="ShowMenuBtn"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="" FontFamily="Segoe MDL2 Assets" Name="MinimizeBtn" Click="Button_Click" ToolTip="Minimize" Tag="MinimizeBtn"/>
+                    <Button Content="" FontFamily="Segoe MDL2 Assets" Name="MaximizeBtn" Click="Button_Click" ToolTip="Maximize" Tag="MaximizeBtn"/>
+                    <Button Content="" FontFamily="Segoe MDL2 Assets" Name="CloseBtn" Click="Button_Click" ToolTip="Close" Tag="CloseBtn"/>
+                </StackPanel>
+            </Grid>
         </Grid>
     </Border>
 </Window>

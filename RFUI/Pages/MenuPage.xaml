@@ -8,20 +8,11 @@
       d:DesignHeight="720" d:DesignWidth="200"
       Title="MenuPage">
 
-    <StackPanel Orientation="Horizontal">
-        <StackPanel>
-            <Button Content="" Width="25" FontFamily="Segoe MDL2 Assets" IsEnabled="False"/>
-            <Button Content="" Width="25"/>
-            <Button Content="" Width="25" FontFamily="Segoe MDL2 Assets" IsEnabled="False"/>
-            <Button Content="" Width="25" FontFamily="Segoe MDL2 Assets" IsEnabled="False"/>
-            <Button Content="&#xEF2C;" Width="25" FontFamily="Segoe MDL2 Assets" IsEnabled="False"/>
-        </StackPanel>
-        <StackPanel>
-            <Button Content="RFUpdater" Width="175" Name="App" Click="Button_Click" ToolTip="RFUpdater" Tag="App"/>
-            <Button Content="" Width="175"/>
-            <Button Content="Change theme" Width="175" Name="ChangeTheme" Click="Button_Click" ToolTip="Change theme" Tag="ChangeTheme"/>
-            <Button Content="About" Width="175" Name="About" Click="Button_Click" ToolTip="About" Tag="About"/>
-            <Button Content="Exit" Width="175" Name="Exit" Click="Button_Click" ToolTip="Exit" Tag="Exit"/>
-        </StackPanel>
+    <StackPanel Orientation="Vertical" Margin="0,25,0,0">
+        <Button Content="RFUpdater" Style="{StaticResource MenuButton}" Name="App" Click="Button_Click" ToolTip="RFUpdater" Tag="App"/>
+        <Button Content="" Style="{StaticResource MenuButton}"/>
+        <Button Content="Change theme" Style="{StaticResource MenuButton}" Name="ChangeTheme" Click="Button_Click" ToolTip="Change theme" Tag="ChangeTheme"/>
+        <Button Content="About" Style="{StaticResource MenuButton}" Name="About" Click="Button_Click" ToolTip="About" Tag="About"/>
+        <Button Content="Exit" Style="{StaticResource MenuButton}" Name="Exit" Click="Button_Click" ToolTip="Exit" Tag="Exit"/>
     </StackPanel>
 </Page>

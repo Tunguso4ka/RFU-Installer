@@ -71,7 +71,7 @@ namespace RFUI
                 Properties.Settings.Default.InstalledVersion = "0";
                 Properties.Settings.Default.Save();
                 IsInstalled = false;
-                MessageBox.Show("df", "a");
+                //MessageBox.Show("df", "a");
             }
         }
 
@@ -271,7 +271,7 @@ namespace RFUI
         {
             //Кнопки 
             Button ClickedButton = (Button)sender;
-            if ((string)ClickedButton.Tag == "Close")
+            if ((string)ClickedButton.Tag == "CloseBtn")
             {
                 if(Properties.Settings.Default.CanClose == true)
                 {
@@ -283,11 +283,11 @@ namespace RFUI
                     this.WindowState = WindowState.Minimized;
                 }
             }
-            else if ((string)ClickedButton.Tag == "Minimize")
+            else if ((string)ClickedButton.Tag == "MinimizeBtn")
             {
                 this.WindowState = WindowState.Minimized;
             }
-            else if ((string)ClickedButton.Tag == "Maximize")
+            else if ((string)ClickedButton.Tag == "MaximizeBtn")
             {
                 if (this.WindowState == WindowState.Maximized)
                 {
@@ -303,22 +303,19 @@ namespace RFUI
                 }
                 
             }
-            else if ((string)ClickedButton.Tag == "ShowMenu")
+            else if ((string)ClickedButton.Tag == "ShowMenuBtn")
             {
                 if(Frame1.Visibility == Visibility.Visible)
                 {
                     ClickedButton.ToolTip = "Show Menu";
                     ClickedButton.Content = "";
                     Frame1.Visibility = Visibility.Collapsed;
-                    Frame1Rectangle.Visibility = Visibility.Collapsed;
                 }
                 else if (this.Width >= 600 && Frame1.Visibility == Visibility.Collapsed)
                 {
                     ClickedButton.ToolTip = "Hide Menu";
                     ClickedButton.Content = "";
                     Frame1.Visibility = Visibility.Visible;
-                    Frame1Rectangle.Visibility = Visibility.Visible;
-                    Frame1Rectangle.Width = Frame1.Width;
                 }
             }
         }
@@ -375,7 +372,7 @@ namespace RFUI
             {
                 this.WindowStyle = WindowStyle.SingleBorderWindow;
                 this.WindowState = WindowState.Maximized;
-                Maximize.Content = "";
+                MaximizeBtn.Content = "";
                 this.WindowStyle = WindowStyle.None;
             }
         }
@@ -383,11 +380,9 @@ namespace RFUI
         {
             if(this.Width <= 600)
             {
-                ShowMenu.ToolTip = "Show Menu";
-                ShowMenu.Content = "";
+                ShowMenuBtn.ToolTip = "Show Menu";
+                ShowMenuBtn.Content = "";
                 Frame1.Visibility = Visibility.Collapsed;
-                Frame1Rectangle.Visibility = Visibility.Collapsed;
-                Frame1Rectangle.Width = Frame1.Width;
             }
         }
     }

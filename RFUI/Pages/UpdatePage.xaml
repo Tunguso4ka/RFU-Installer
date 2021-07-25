@@ -8,30 +8,33 @@
       d:DesignHeight="475" d:DesignWidth="700"
       Title="UpdatePage">
 
-    <Grid>
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="5">
-            <Border Background="#E0E0E0" CornerRadius="90">
-                <Image Name="RFUIcon" Height="64" Width="64" Source="/Resources/rfulogo0525.png" SnapsToDevicePixels="False"/>
-            </Border>
-            <Separator/>
-            <StackPanel>
-                <TextBlock Text="RFUpdater" FontSize="24"/>
-                <TextBlock Name="VersionTextBlock" Text="Version: 0.0.0.0 (0.0.0.0)" Foreground="Gray"/>
-            </StackPanel>
-            <Separator/>
-            <Button Content="Install" Height="50" Width="100" FontSize="24" Name="InstallBtn" Click="Button_Click" Tag="Install" ToolTip="Install"/>
-            <Separator/>
-            <Button Content="" Height="50" Width="50" FontSize="24" FontFamily="Segoe MDL2 Assets" Name="DeleteBtn" Click="Button_Click" Tag="Delete" ToolTip="Delete"/>
-            <Separator/>
-            <Button Content="" Height="50" Width="50" FontSize="24" FontFamily="Segoe MDL2 Assets" Name="InfoBtn" Click="Button_Click" Tag="Info" ToolTip="Show info"/>
-            <Separator/>
-            <Border Name="InfoBorder" Visibility="Collapsed">
-                <WrapPanel Width="300">
-                    <TextBlock Name="DownloadingSpeed" Text=""/>
-                    <TextBlock Name="FileSize" Text=""/>
-                    <TextBlock Name="TimeToEnd" Text=""/>
+    <Grid Margin="5,25,5,5">
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <StackPanel Orientation="Vertical">
+                <WrapPanel VerticalAlignment="Top" Margin="5">
+                    <StackPanel Orientation="Horizontal">
+                        <Border CornerRadius="90">
+                            <Image Name="RFUIcon" Height="64" Width="64" Source="/Resources/rfulogo0525.png" SnapsToDevicePixels="False"/>
+                        </Border>
+                        <Separator/>
+                        <StackPanel>
+                            <TextBlock Text="RFUpdater" FontSize="24"/>
+                            <TextBlock Name="VersionTextBlock" Text="Version: 0.0.0.0 (0.0.0.0)" Foreground="Gray"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <Button Content="Install" Height="50" Width="100" FontSize="24" Name="InstallBtn" Click="Button_Click" Tag="Install" ToolTip="Install"/>
+                    <Button Content="" Height="50" Width="50" FontSize="24" FontFamily="Segoe MDL2 Assets" Name="DeleteBtn" Click="Button_Click" Tag="Delete" ToolTip="Delete"/>
+                    <Button Content="" Height="50" Width="50" FontSize="24" FontFamily="Segoe MDL2 Assets" Name="InfoBtn" Click="Button_Click" Tag="Info" ToolTip="Show info"/>
                 </WrapPanel>
-            </Border>
-        </StackPanel>
+                <Border Name="InfoBorder" Visibility="Collapsed">
+                    <WrapPanel Width="300">
+                        <TextBlock Name="DownloadingSpeed" Text=""/>
+                        <TextBlock Name="FileSize" Text=""/>
+                        <TextBlock Name="TimeToEnd" Text=""/>
+                    </WrapPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>
