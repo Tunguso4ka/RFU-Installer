@@ -173,11 +173,7 @@ namespace RFUI
 
             WebClient WebClient = new WebClient();
 
-            if (Directory.Exists(Properties.Settings.Default.RFUPath))
-            {
-
-            }
-            else
+            if (!Directory.Exists(Properties.Settings.Default.RFUPath))
             {
                 Directory.CreateDirectory(Properties.Settings.Default.RFUPath);
             }
@@ -339,7 +335,7 @@ namespace RFUI
 
             _StripMenuItemAppName.Text = "RFU Installer";
             _StripMenuItemAppName.Enabled = false;
-            _StripMenuItemAppName.Image = Properties.Resources.rfulogo0525;
+            _StripMenuItemAppName.Image = Properties.Resources.rfui0729;
 
             notifyIcon.Icon = Properties.Resources.rfulogo0525_lcM_icon;
             notifyIcon.ContextMenuStrip = _ContextMenuStrip;
